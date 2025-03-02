@@ -323,7 +323,7 @@ def concatenate_all(matrix_list: List[Union[np.ndarray, csr_matrix]],
 
     num_k = len(matrix_list) - 1
 
-    scale_factors_squared = np.zeros(len(matrix_list))
+    scale_factors_squared = np.zeros(len(matrix_list), dtype=np.float32)
 
     scale_factors_squared[0] = 1 - neighbourhood_contribution
 
@@ -405,7 +405,7 @@ def banksy_matrix_to_adata(banksy_matrix,
                            adata: anndata.AnnData,  # original adata object
                            ) -> anndata.AnnData:
     """
-    convert a banksy matrix to adata object, by 
+    convert a banksy matrix to adata object, by
      - duplicating the original var (per-gene) annotations and adding "_nbr"
      - keeping the obs (per-cell) annotations the same as original anndata that banksy matrix was computed from
     """
@@ -579,7 +579,7 @@ class LeidenPartition(object):
                   threshold: Union[float, int] = 5,
                   ) -> Tuple[csr_matrix, csr_matrix]:
         """
-        compute shared nearest neighbour graph 
+        compute shared nearest neighbour graph
         from nearest neighbour graph
         """
         # compute all shared nearest neighbours
@@ -671,7 +671,7 @@ class LeidenPartition(object):
 @timer
 def median_dist_to_nearest_neighbour(adata: anndata.AnnData,
                                      key: str = "coord_xy"):
-    
+
     '''Finds and returns median cell distance in a graph'''
     nbrs = NearestNeighbors(algorithm='ball_tree').fit(adata.obsm[key])
     distances, indices = nbrs.kneighbors(n_neighbors=1)

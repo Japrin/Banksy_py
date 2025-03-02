@@ -56,7 +56,7 @@ def generate_banksy_matrix(adata: anndata.AnnData,
 
         for lambda_param in lambda_list:
             gc.collect()
-            # Create BANKSY matrix by concatenating all 
+            # Create BANKSY matrix by concatenating all
             banksy_matrix = concatenate_all(mat_list, lambda_param, adata)
 
             if verbose:
@@ -144,14 +144,14 @@ def create_nbr_matrix(adata,
         #weights_abs.data = np.absolute(weights_abs.data)
         weights_data = weights.data
         #nbr_avgs = weights_abs @ X_dense
-        nbr_mat = np.zeros(adata.X.shape, )
+        nbr_mat = np.zeros(adata.X.shape, dtype=np.float32)
 
         # for n in range(weights.indptr.shape[0] - 1):
         #     ind_temp = weights.indices[weights.indptr[n]:weights.indptr[n + 1]]
         #     weight_temp = weights.data[weights.indptr[n]:weights.indptr[n + 1]]
         #     zerod = X_dense[ind_temp, :] - nbr_avgs[n, :]
         #     nbr_mat[n, :] = np.absolute(np.expand_dims(weight_temp, axis=0) @ zerod)
-        
+
         ### Edit: Update Sep 2024 to match Banksy R
 
 
